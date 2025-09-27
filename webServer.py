@@ -1,4 +1,4 @@
-# import socket module
+# import socket module# import socket module
 from socket import *
 # In order to terminate the program
 import sys
@@ -31,14 +31,18 @@ def webServer(port=13331):
 
             # This variable can store the headers you want to send for any valid or invalid request.   What header should be sent for a response that is ok?
             # Fill in start
-            outputdata = b"HTTP/1.1 200 OK\r\nContent-Type: text/html; charset=UTF-8\r\n\r\n"
+            header = (
+                b"HTTP/1.1 200 OK\r\n"
+                b"Server: MyTinyServer\r\n"
+                b"Connection: close\r\n"
+            )
 
             # Content-Type is an example on how to send a header as bytes. There are more!
+            outputdata = b"Content-Type: text/html; charset=UTF-8\r\n"
 
             # Note that a complete header must end with a blank line, creating the four-byte sequence "\r\n\r\n" Refer to https://w3.cs.jmu.edu/kirkpams/OpenCSF/Books/csf/html/TCPSockets.html
-
-            # Fill in end
             outputdata = outputdata + b"\r\n"
+            # Fill in end
 
             for i in f:  # for line in file
                 # Fill in start - append your html file contents
@@ -59,6 +63,8 @@ def webServer(port=13331):
     # Fill in start
             connectionSocket.sendall(
                 b"HTTP/1.1 404 Not Found\r\n"
+                b"Server: MyTinyServer\r\n"
+                b"Connection: close\r\n"
                 b"Content-Type: text/html; charset=UTF-8\r\n"
                 b"\r\n"
                 b"<html><body><h1>404 Not Found</h1></body></html>"
